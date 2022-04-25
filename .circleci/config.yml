@@ -17,6 +17,8 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - aws-cli/install
+      - aws-cli/setup
       - run:
           # select region
           name: "Create bucket if does not exist"
