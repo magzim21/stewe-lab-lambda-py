@@ -17,13 +17,10 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      - aws-cli/install
-      - aws-cli/setup
+      # - run:
+      #     name: "Check credentials"
+      #     command: "aws sts get-caller-identity"
       - run:
-          name: "Check credentials"
-          command: "aws sts get-caller-identity"
-      - run:
-          # select region
           name: "Create bucket if does not exist."
           # Must be uniquew across all accounts and regions.
           command: "aws s3 mb s3://stewe-lambda --region=us-west-1 || true"
