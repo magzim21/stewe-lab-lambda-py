@@ -6,7 +6,7 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  upload-zip:
+  upload-zip-to-s3:
     environment:
       ARCHIVE_NAME: lambda-py.zip
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -21,7 +21,7 @@ jobs:
           # select region
           name: "Create bucket if does not exist"
           # grep successful output or acceptible error
-          command: "aws s3 mb s3://stewe-lambda --region=us-west-1 2>&1 | grep 'make_bucket: stewe-lambda\|BucketAlreadyOwnedByYou'"
+          command: "aws s3 mb s3://stewe-lambda --region=us-west-1 2>&1 | grep 'make_bucket: stewe-lambda\\|BucketAlreadyOwnedByYou'"
       - run:
           name: "Zip .py files"
           command: "zip -i '*.py' -r $ARCHIVE_NAME ."
@@ -33,6 +33,6 @@ jobs:
 workflows:
   upload-zip-workflow:
     jobs:
-      - say-hello:
+      - upload-zip-to-s3:
           context:
             - stewe
