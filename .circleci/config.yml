@@ -23,7 +23,7 @@ jobs:
           # select region
           name: "Create bucket if does not exist"
           # grep successful output or acceptible error
-          command: "aws s3 mb s3://stewe-lambda --region=us-west-1 2>&1 | grep 'make_bucket: stewe-lambda\\|BucketAlreadyOwnedByYou'"
+          command: "env ; aws s3 mb s3://stewe-lambda --region=us-west-1 "
       - run:
           name: "Zip .py files"
           command: "zip -i '*.py' -r $ARCHIVE_NAME ."
